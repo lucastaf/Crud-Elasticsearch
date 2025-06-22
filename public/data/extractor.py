@@ -1,5 +1,3 @@
-#Fonte dos arquivos CSV usado para gerar o JSON: https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset
-
 import pandas as pd
 import json
 from ast import literal_eval
@@ -70,14 +68,12 @@ output = []
 for _, row in df.iterrows():
     belongs_to_collection = row["belongs_to_collection"]
     poster = None
-    if(isinstance(belongs_to_collection, str)):
+    if isinstance(belongs_to_collection, str):
         belongs_to_collection = literal_eval(belongs_to_collection)
         poster = belongs_to_collection["poster_path"]
         poster = get_poster_url(poster)
     movie = {
-        "id": (
-            f"tt{int(row['imdbId']):07}" if pd.notna(row["imdbId"]) else str(row["id"])
-        ),
+        "id": row["imdb_id"],
         "title": row["title"],
         "genres": parse_genres(row["genres"]),
         "release_year": (
