@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { CircleX } from "lucide-react";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Search() {
   const [query, setQuery] = useState("");
@@ -104,14 +105,23 @@ export default function Search() {
                     <Button
                       onClick={(e) => {
                         e.preventDefault();
-                        axios.delete(`/api/delete`, {
+                        const resAxios = axios.delete(`/api/delete`, {
                           params: {
                             id: item._id,
                           },
-                        }).then(()=>{
-                          setResults(prev => {
-                            return prev.filter(items => items._id != item._id)
-                          })
+                        });
+
+                        toast.promise(resAxios, {
+                          loading: "Excluindo filme",
+                          success: () => {
+                            setResults((prev) => {
+                              return prev.filter(
+                                (items) => items._id != item._id
+                              );
+                            });
+                            return "Filme excluido com sucesso";
+                          },
+                          error: "Erro ao excluir o filme",
                         });
                       }}
                       className="ml-auto"

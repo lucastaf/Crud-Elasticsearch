@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { FormEvent } from "react";
+import toast from "react-hot-toast";
 
 export default function NewMovieModal({
   isOpen,
@@ -29,12 +30,20 @@ export default function NewMovieModal({
       rating: parseFloat(e.target[10].value),
     };
 
-    axios.post("/api/create", data);
+    const resAxios = axios.post("/api/create", data);
+    toast.promise(resAxios, {
+      loading: "Cadastrando filme",
+      error: "Erro ao cadastrar filme",
+      success: () => {
+        setIsOpen(false);
+        return "Filme cadastrado com sucesso";
+      },
+    });
   }
   return (
     <Dialog fullWidth open={isOpen} onClose={() => setIsOpen(false)}>
-      <DialogTitle>Cadastro de filme</DialogTitle>
       <DialogContent>
+        <DialogTitle>Cadastro de filme</DialogTitle>
         <form
           onSubmit={(e) => {
             e.preventDefault();
