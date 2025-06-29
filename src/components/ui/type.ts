@@ -1,4 +1,5 @@
 type itemType = {
+    "_id" : string,
     "id": string,
     "title": string,
     "genres": string[],

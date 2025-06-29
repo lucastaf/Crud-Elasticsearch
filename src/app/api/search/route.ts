@@ -1,16 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { Client } from '@elastic/elasticsearch';
 import { NextRequest } from 'next/server';
+import { client } from '../client';
 
-// 🔗 Configuração do client Elasticsearch
-const client = new Client({
-  node: 'http://localhost:9200',
-  auth: {
-    // username: 'elastic',
-    // password: 'admin'
-    apiKey: process.env.API_KEY ?? ""
-  }
-});
+
 // 🎯 API para busca
 export async function GET(
   request: NextRequest
@@ -34,7 +25,10 @@ export async function GET(
       }
     });
 
-    const hits = result.hits.hits.map((hit) => hit._source);
+    const hits = result.hits.hits.map((hit: any) => ({
+      _id: hit._id,
+      ...hit._source,
+    }))
 
     return Response.json({ results: hits });
   } catch (error: any) {
