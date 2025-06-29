@@ -1,10 +1,9 @@
 type itemType = {
-    "_id" : string,
+    "_id"?: string,
     "id": string,
     "title": string,
     "genres": string[],
-    "release_year": string,
+    "release_year": number,
     "poster": string,
-    "creators": string[],
     "rating": number
 }

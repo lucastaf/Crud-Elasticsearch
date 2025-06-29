@@ -1,4 +1,6 @@
 "use client";
+import EditMovieModal from "@/components/editMovieModal";
+import MovieItem from "@/components/movieItem";
 import NewMovieModal from "@/components/newMovieModal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -72,67 +74,7 @@ export default function Search() {
 
       <ul style={{ listStyle: "none", padding: 0, marginTop: "1rem" }}>
         {results.map((item, index) => (
-          <li
-            key={index}
-            style={{
-              padding: "1rem",
-              border: "1px solid #eee",
-              borderRadius: "8px",
-              marginBottom: "0.5rem",
-              boxShadow: "0 2px 5px rgba(0,0,0,0.05)",
-            }}
-          >
-            <a href={"https://www.imdb.com/title/" + item.id} target="_blank">
-              <Box className="flex gap-3">
-                {item.poster && (
-                  <img className="rounded-2xl" width="100" src={item.poster} />
-                )}
-                <Box className="w-full flex flex-col justify-between">
-                  <Box className="w-full">
-                    <Box className="flex justify-between">
-                      <Typography variant="h6">{item.title}</Typography>
-                      <Rating
-                        readOnly={true}
-                        name="half-rating"
-                        value={item.rating}
-                        precision={0.5}
-                      />
-                    </Box>
-                    <Typography>{item.release_year}</Typography>
-                    <p>{item.genres.join(", ")}</p>
-                  </Box>
-                  <Box className="flex justify-end">
-                    <Button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        const resAxios = axios.delete(`/api/delete`, {
-                          params: {
-                            id: item._id,
-                          },
-                        });
-
-                        toast.promise(resAxios, {
-                          loading: "Excluindo filme",
-                          success: () => {
-                            setResults((prev) => {
-                              return prev.filter(
-                                (items) => items._id != item._id
-                              );
-                            });
-                            return "Filme excluido com sucesso";
-                          },
-                          error: "Erro ao excluir o filme",
-                        });
-                      }}
-                      className="ml-auto"
-                    >
-                      <CircleX color="red" />
-                    </Button>
-                  </Box>
-                </Box>
-              </Box>
-            </a>
-          </li>
+          <MovieItem item={item} key={index} setResults={setResults} />
         ))}
       </ul>
     </div>

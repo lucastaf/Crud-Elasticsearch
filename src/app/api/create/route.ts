@@ -1,6 +1,6 @@
 // src/app/api/movies/add/route.ts
 import { NextRequest, NextResponse } from 'next/server'
-import { client } from '../client'
+import { client } from '@/lib/client'
 
 export async function POST(req: NextRequest) {
   try {
