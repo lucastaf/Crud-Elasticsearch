@@ -17,7 +17,7 @@ export async function GET(
 
   try {
     const result = await client.search({
-      index: 'movies', // 🔍 Nome do seu índice no Elasticsearch
+      index: 'movies',
       query: {
         multi_match: {
           query: q,

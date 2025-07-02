@@ -21,7 +21,7 @@ services:
     container_name: kibana
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      - ELASTICSEARCH_SERVICEACCOUNTTOKEN=AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS1zZXJ2aWNlLXRva2VuOkZ0ODExN1dWU09lcndsZjZtNkNNdUE
+      - ELASTICSEARCH_SERVICEACCOUNTTOKEN=AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS1zZXJ2aWNlLXRva2VuOmgwLVNYeGZXUWdDSUlBZXlxd0d5LVE
     ports:
       - "5601:5601"
     depends_on:
@@ -33,4 +33,9 @@ volumes:
 
 #docker-compose up -d elasticsearch
 #docker exec -it elasticsearch bin/elasticsearch-service-tokens create elastic/kibana kibana-service-token
+#Cola o código gerado na variavel do ELASTICSEARCH_SERVICEACCOUNTTOKEN
 #docker-compose up -d kibana
+#Kibana, login elastic, senha admin,
+#Importa dados de arquivo, importa o ndjson dentro public/data
+#Crie uma API pelo kibana, habilite Control security privileges
+#Copie a key, coloque a var API_KEY no env
