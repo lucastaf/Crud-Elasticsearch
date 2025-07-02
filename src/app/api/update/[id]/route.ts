@@ -1,4 +1,3 @@
-// src/app/api/movies/update/[id]/route.ts
 import { client } from '@/lib/client' 
 import { NextRequest, NextResponse } from 'next/server'
 

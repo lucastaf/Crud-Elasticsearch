@@ -1,13 +1,9 @@
-// src/app/api/movies/delete/[id]/route.ts
 import { client } from '@/lib/client'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const searchParams = request.nextUrl.searchParams
-
     const {id} = params
-    // const id = searchParams.get("id") ?? "";
 
     const res = await client.delete({
       index: 'movies',

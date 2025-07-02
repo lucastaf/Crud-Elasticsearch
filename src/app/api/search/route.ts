@@ -2,7 +2,6 @@ import { NextRequest } from 'next/server';
 import { client } from '@/lib/client';
 
 
-// 🎯 API para busca
 export async function GET(
   request: NextRequest
 ) {

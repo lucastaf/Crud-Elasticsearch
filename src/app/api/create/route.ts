@@ -1,4 +1,3 @@
-// src/app/api/movies/add/route.ts
 import { NextRequest, NextResponse } from 'next/server'
 import { client } from '@/lib/client'
 
@@ -6,12 +5,10 @@ export async function POST(req: NextRequest) {
   try {
     const data = await req.json()
 
-    // Verificação básica
     if (!data.id || !data.title) {
       return NextResponse.json({ error: 'ID e título são obrigatórios.' }, { status: 400 })
     }
 
-    // Inserir no Elasticsearch
     const res = await client.index({
       index: 'movies',
       document: data,
